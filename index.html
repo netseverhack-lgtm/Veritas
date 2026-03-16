@@ -827,7 +827,7 @@
           <div class="ci-icon">✉</div>
           <div>
             <div class="ci-label">Email</div>
-            <div class="ci-value">support@veritasredress.org</div>
+            <div class="ci-value">claim@sentinelpath.org</div>
           </div>
         </div>
         <div class="contact-info-item">
@@ -898,9 +898,38 @@
         <label>Brief Description</label>
         <textarea placeholder="When did the fraud occur, which platform or individual was involved, and how were funds transferred?"></textarea>
       </div>
-      <button class="form-submit">Submit Free Case Review →</button>
+      <button class="form-submit" onclick="submitToWhatsApp()">Submit Free Case Review →</button>
       <p class="form-note">By submitting you agree to our Privacy Policy. All information is handled in strict confidence under legal professional privilege.</p>
     </div>
+
+<script>
+function submitToWhatsApp() {
+  const firstName = document.querySelector('input[placeholder="John"]').value.trim();
+  const lastName  = document.querySelector('input[placeholder="Smith"]').value.trim();
+  const email     = document.querySelector('input[type="email"]').value.trim();
+  const phone     = document.querySelector('input[type="tel"]').value.trim();
+  const fraudType = document.querySelector('select').value;
+  const amount    = document.querySelector('input[placeholder="e.g. £25,000"]').value.trim();
+  const desc      = document.querySelector('textarea').value.trim();
+
+  if (!firstName || !lastName || !email || !fraudType || !desc) {
+    alert('Please fill in all required fields before submitting.');
+    return;
+  }
+
+  const msg =
+    `*New Case Submission — Veritas Redress*\n\n` +
+    `*Name:* ${firstName} ${lastName}\n` +
+    `*Email:* ${email}\n` +
+    `*Phone:* ${phone || 'Not provided'}\n` +
+    `*Fraud Type:* ${fraudType}\n` +
+    `*Amount Lost:* ${amount || 'Not provided'}\n` +
+    `*Description:*\n${desc}`;
+
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://wa.me/447404329780?text=${encoded}`, '_blank');
+}
+</script>
   </div>
 </section>
 
@@ -947,12 +976,3 @@
   <div class="footer-bottom">
     <p>© 2025 Veritas Redress Ltd. All rights reserved. Registered in England & Wales No. 12345678.</p>
     <div class="footer-legal">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Cookies</a>
-    </div>
-  </div>
-</footer>
-
-</body>
-</html>
